@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   resources :groups
   resources :users
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  # groups users
+  get '/groups_users', to: 'groups_users#index'
+  post '/groups_users', to: 'groups_users#create'
+  delete '/groups_users', to: 'groups_users#destroy'
+  # groups users
 end
