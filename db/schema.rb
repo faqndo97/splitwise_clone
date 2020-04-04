@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_04_002746) do
+ActiveRecord::Schema.define(version: 2020_04_04_003552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "deptors_expenses", force: :cascade do |t|
+    t.bigint "expense_id", null: false
+    t.bigint "deptor_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["deptor_id"], name: "index_deptors_expenses_on_deptor_id"
+    t.index ["expense_id"], name: "index_deptors_expenses_on_expense_id"
+  end
 
   create_table "expenses", force: :cascade do |t|
     t.bigint "payer_id", null: false
@@ -49,6 +58,8 @@ ActiveRecord::Schema.define(version: 2020_04_04_002746) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "deptors_expenses", "expenses"
+  add_foreign_key "deptors_expenses", "users", column: "deptor_id"
   add_foreign_key "expenses", "groups"
   add_foreign_key "expenses", "users", column: "payer_id"
   add_foreign_key "groups_users", "groups"
